@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const app = require("./app");
 const listEndPoints = require("list_end_points");
 const catchErr = require("./utilities/catchErr");

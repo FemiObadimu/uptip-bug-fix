@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const _ = require("lodash");
 const User = require("../models/User");
 const catchErr = require("../utilities/catchErr");

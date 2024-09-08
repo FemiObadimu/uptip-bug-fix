@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const request = require("request");
 const Payment = require("../models/Payment");
 const { initialisePayment, verifyPayment } = require("../utilities/paystack")(

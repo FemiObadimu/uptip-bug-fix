@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const express = require("express");
 const router = express.Router();
 const { authMiddleware } = require("../middlewares/authMiddleware");
@@ -18,11 +19,9 @@ router.post(
   paymentCtrl.webHookTest,
 );
 
-router.get(
+router.post(
   "/create-payment",
-  authMiddleware,
-  paymentMiddleware,
-  paymentCtrl.createPayment,
+  paymentCtrl.verifyAndCreatePayment,
 );
 
 router.get(
