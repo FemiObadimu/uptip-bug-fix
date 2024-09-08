@@ -137,7 +137,7 @@ exports.getPayment = catchErr(async (req, res, next) => {
   });
 });
 
-exports.verifyAndCreatePayment = async(req,res) => {
+exports.verifyAndCreatePayment = async( req,res ) => {
    // Validate event
     const hash = crypto.createHmac("sha512", secret).update(JSON.stringify(req.body)).digest("hex");
     if (hash !== req.headers["x-paystack-signature"]) {
@@ -150,31 +150,22 @@ exports.verifyAndCreatePayment = async(req,res) => {
     if (event && event.event === "charge.success") {
         console.log(event);
 
-          const { duration } = await Subscription.findOne({
+        const { duration } = await Subscription.findOne({
             price: event.data.amount / 100,
           });
 
-          const paymentInfo = {
-            amount: event.data.amount,
-            paid_at: event.data.createdAt,
-            status: true,
-            reference: event.data.reference,
-            email: event.data.customer.email,
-            full_name: event.data.customer.first_name.concat(event.data.customer.last_name),
-            expires_at: addDaysToCurrentDate(event.data.createdAt, duration),
-          };
 
           const newPayment = await Payment.create({
             status: true,
-            email: paymentInfo.email,
-            amount: paymentInfo.amount,
-            reference: paymentInfo.reference,
-            full_name: paymentInfo.full_name,
-            created_at: paymentInfo.paid_at,
-            expires_at: paymentInfo.expires_at,
+            email: event.data.email,
+            amount: event.data.amount,
+            reference: event.data.reference,
+            full_name: event.data.metadata.full_name,
+            created_at: event.data.createdAt,
+            expires_at: addDaysToCurrentDate(event.data.createdAt, duration),
           });
 
-          await newPayment.save();
+         newPayment.save();
 
         return res.status(200).json({ message: "Transfer successful, payment processed." });
     } else {
