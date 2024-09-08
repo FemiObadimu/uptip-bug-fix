@@ -10,9 +10,12 @@ const Subscription = require("../models/Subscription");
 
 class PaymentService {
   async initiatePayment(data) {
+
+    
     try {
-      const form = _.pick(data, ["amount", "email", "full_name", "user_id"]);
+      const form = _.pick(data, ["amount","email", "full_name","user_id"]);
       form.metadata = { full_name: form.full_name, user_id: form.user_id };
+      
 
       return new Promise((resolve, reject) => {
         initialisePayment(form, (err, body) => {
