@@ -26,6 +26,7 @@ const paymentSchema = mongoose.Schema(
     },
     expires_at: {
       type: Date,
+      required:false,
     },
     status: {
       type: Boolean,
