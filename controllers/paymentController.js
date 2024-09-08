@@ -157,6 +157,7 @@ exports.verifyAndCreatePayment = async( req,res ) => {
 
           const newPayment = await Payment.create({
             status: true,
+            user_id: event.data.metadata.user_id,
             email: event.data.email,
             amount: event.data.amount,
             reference: event.data.reference,
@@ -164,7 +165,7 @@ exports.verifyAndCreatePayment = async( req,res ) => {
             created_at: event.data.createdAt,
             expires_at: addDaysToCurrentDate(event.data.createdAt, duration),
           });
-
+          
            await newPayment.save();
            console.log("Transfer successful, payment processed.");
            
