@@ -52,7 +52,7 @@ exports.isDateNotExpired = (expirationDate) => {
 exports.addDaysToCurrentDate = (currDate, daysToAdd) => {
   const currentDate = !currDate ? Date.now() : new Date(currDate);
   currentDate.setDate(currentDate.getDate() + daysToAdd ?? 0);
-  return currentDate.toISOString();
+  return currentDate.toString();
 };
 
 exports.formatReadableDate = (date) => {

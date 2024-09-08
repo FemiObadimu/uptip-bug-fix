@@ -6,8 +6,8 @@ const catchErr = require("../utilities/catchErr");
 const throwError = require("../utilities/errorHandler");
 const Payment = require("../models/Payment");
 const secret = process.env.PAYSTACK_SECRET_KEY;
-// const { addDaysToCurrentDate } = require("../utilities/helpers/help");
-// const Subscription = require("../models/Subscription");
+const { addDaysToCurrentDate } = require("../utilities/helpers/help");
+const Subscription = require("../models/Subscription");
 
 
 exports.initializePayment = catchErr(async (req, resp, next) => {
@@ -150,9 +150,10 @@ exports.verifyAndCreatePayment = async( req,res ) => {
     if (event && event.event === "charge.success") {
         console.log(event);
 
-        // const { duration } = await Subscription.findOne({
-        //     price: event.data.amount / 100,
-        //   });
+
+        const { duration } = await Subscription.findOne({
+            price: event.data.amount / 100,
+          });
 
           const newPayment = Payment.create({
             status: true, 
@@ -162,12 +163,10 @@ exports.verifyAndCreatePayment = async( req,res ) => {
             reference: event.data.reference,
             full_name: event.data.metadata.full_name,
             created_at: event.data.createdAt,
-            // expires_at: addDaysToCurrentDate(event.data.createdAt, duration),
+            expires_at: addDaysToCurrentDate(event.data.createdAt, duration),
           });
           
            await newPayment.save();
-
-          // console.log(newPayment);
 
 
            console.log("Transfer successful, payment processed.");
