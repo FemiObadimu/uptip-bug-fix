@@ -148,18 +148,14 @@ exports.verifyAndCreatePayment = async( req,res ) => {
     const event = req.body;
 
     if (event && event.event === "charge.success") {
-        // console.log(event);
+        console.log(event);
 
         const { duration } = await Subscription.findOne({
             price: event.data.amount / 100,
           });
-          
-          console.log(duration);
-          
 
-
-          const newPayment = await Payment.create({
-            status: true,
+          const newPayment = Payment.create({
+            status: true, 
             user_id: event.data.metadata.user_id,
             email: event.data.customer.email,
             amount: event.data.amount,
