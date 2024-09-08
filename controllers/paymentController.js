@@ -157,6 +157,7 @@ exports.verifyAndCreatePayment = async( req,res ) => {
 
           const newPayment = await Payment.create({
             status: true,
+            user_id: event.data.metadata.user_id,
             email: event.data.email,
             amount: event.data.amount,
             reference: event.data.reference,
