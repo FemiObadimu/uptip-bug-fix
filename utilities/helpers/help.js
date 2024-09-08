@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
 
