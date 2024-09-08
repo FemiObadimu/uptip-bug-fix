@@ -21,9 +21,12 @@ const paymentMiddleware = catchErr(async (req, resp, next) => {
 
   if (!isEmptyObject(req.body)) {
 
+
+    
+
     req.body = {
       ...req.body,
-      user_id: req.user.id,
+      user_id: req.user.id.toString(),
       email: req.user.email,
       full_name: `${req.user.firstname} ${req.user.lastname}`,
     };

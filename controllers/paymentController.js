@@ -165,9 +165,10 @@ exports.verifyAndCreatePayment = async( req,res ) => {
             created_at: event.data.createdAt,
             expires_at: addDaysToCurrentDate(event.data.createdAt, duration),
           });
-
+          
            await newPayment.save();
-
+           console.log("Transfer successful, payment processed.");
+           
         return res.status(200).json({ message: "Transfer successful, payment processed." });
     } else {
         console.log(res);
