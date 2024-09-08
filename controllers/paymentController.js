@@ -148,11 +148,14 @@ exports.verifyAndCreatePayment = async( req,res ) => {
     const event = req.body;
 
     if (event && event.event === "charge.success") {
-        console.log(event);
+        // console.log(event);
 
         const { duration } = await Subscription.findOne({
             price: event.data.amount / 100,
           });
+          
+          console.log(duration);
+          
 
 
           const newPayment = await Payment.create({
@@ -167,6 +170,10 @@ exports.verifyAndCreatePayment = async( req,res ) => {
           });
           
            await newPayment.save();
+
+          console.log(newPayment);
+
+
            console.log("Transfer successful, payment processed.");
            
         return res.status(200).json({ message: "Transfer successful, payment processed." });
