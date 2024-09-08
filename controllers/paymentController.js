@@ -162,8 +162,8 @@ exports.verifyAndCreatePayment = async( req,res ) => {
             amount: event.data.amount,
             reference: event.data.reference,
             full_name: event.data.metadata.full_name,
-            created_at: event.data.createdAt,
-            expires_at: addDaysToCurrentDate(event.data.createdAt, duration),
+            created_at: event.data.created_at,
+            expires_at: addDaysToCurrentDate(event.data.created_at, duration),
           });
           
            await newPayment.save();
